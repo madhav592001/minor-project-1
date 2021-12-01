@@ -3,6 +3,7 @@ import { connectdb } from './db/connectdb.js';
 import {userSignup} from './controllers/userSignup.js' ;
 import { userSignin } from './controllers/userSignin.js';
 import {authenticateToken} from './controllers/authenticateToken.js';
+import { getUserDetails } from './controllers/getUserDetails.js';
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -18,6 +19,7 @@ connectdb() ;
 
 app.post('/signup',userSignup); 
 app.post('/signin',userSignin) ; 
+app.get('/getuserdetails',authenticateToken,getUserDetails) ; 
 app.get('/isUserAuthenticated',authenticateToken,(req,res)=>{
 
     return res.status(200).json({

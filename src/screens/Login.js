@@ -17,9 +17,9 @@ const Login = () => {
     axios.post('/signin', {
       email:email,
       password:password
-    }).then((res) => {
+    }).then(async(res) => {
       // console.log(res);
-      localStorage.setItem("jwt_token",res.data.jwt_token) ; 
+      await localStorage.setItem("jwt_token",res.data.jwt_token) ; 
       // console.log( localStorage.getItem('jwt_token') ) ;
       if(res.status === 200)
       {
@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <Container className='text-white d-flex justify-content-center flex-column align-items-center'>
+    <Container className='text-light d-flex justify-content-center flex-column align-items-center'>
       <h1 className='text-center mt-4'>Sticky Notes</h1>
       <img
         className='mt-5'
@@ -67,14 +67,14 @@ const Login = () => {
         </Form.Floating>
 
         <Form.Group className='d-flex justify-content-center align-items-center flex-column w-100 mt-3'>
-          <button className='btn btn-primary w-25' onClick={e=>login(e)}>
+          <button className='btn btn-info w-25' onClick={e=>login(e)}>
             Login
           </button>
 
           {/* <h3>{setAuth?"":"Wrong email/password"}</h3> */}
 
-          <h5 className='mt-5'>Signup for Sticky Notes</h5>
-          <Link to='/registeruser' className='btn btn-primary w-25 mb-5'>
+          <h5 className='mt-5 text-success'>Not Registered? Signup for Sticky Notes</h5>
+          <Link to='/registeruser' className='btn btn-info w-25 mb-5'>
             Signup
           </Link>
         </Form.Group>
