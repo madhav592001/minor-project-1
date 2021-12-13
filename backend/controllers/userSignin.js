@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 
 export const userSignin = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
-
     if (user) {
       if (user.authenticate(req.body.password)) {
         const user = { email: req.body.email }; //* payload

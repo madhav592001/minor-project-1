@@ -4,6 +4,8 @@ import {userSignup} from './controllers/userSignup.js' ;
 import { userSignin } from './controllers/userSignin.js';
 import {authenticateToken} from './controllers/authenticateToken.js';
 import { getUserDetails } from './controllers/getUserDetails.js';
+import {addNote} from './controllers/addNote.js';
+import { getNotes } from './controllers/getNotes.js';
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -20,14 +22,8 @@ connectdb() ;
 app.post('/signup',userSignup); 
 app.post('/signin',userSignin) ; 
 app.get('/getuserdetails',authenticateToken,getUserDetails) ; 
-app.get('/isUserAuthenticated',authenticateToken,(req,res)=>{
-
-    return res.status(200).json({
-        auth:true,
-        user:req.user,
-        message:"you are authenticated"
-    })
-})
+app.post('/addnote',authenticateToken,addNote); 
+app.get('/notes',authenticateToken,getNotes)
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);

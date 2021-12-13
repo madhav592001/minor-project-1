@@ -18,10 +18,11 @@ export const authenticateToken = (req, res, next) => {
         message: 'no access',
       });
 
-    req.user = user; //* will give the payload back like we have given email in payload so it will return that object
-
+    req.user = user; //* will give the payload back like we have given  
+                     //* email in payload so it will return that object
     //* res.send(req.user.email) ;
 
     next();
   });
 };
+  

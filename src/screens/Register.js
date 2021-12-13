@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  
   const [email, setEamil] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,6 +50,7 @@ const Register = () => {
             placeholder='name@example.com'
             value={email}
             onChange={(e) => setEamil(e.target.value)}
+            required
           />
           <label htmlFor='floatingInputCustom'>Email address</label>
         </Form.Floating>
@@ -60,6 +62,7 @@ const Register = () => {
             placeholder='name'
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            required
           />
           <label htmlFor='floatingInputCustom'>Full Name</label>
         </Form.Floating>
@@ -71,6 +74,7 @@ const Register = () => {
             placeholder='user name'
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            required
           />
           <label htmlFor='floatingInputCustom'>User Name</label>
         </Form.Floating>
@@ -82,6 +86,7 @@ const Register = () => {
             placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <label htmlFor='floatingPasswordCustom'>Password</label>
         </Form.Floating>
@@ -93,6 +98,7 @@ const Register = () => {
             placeholder='confirm password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
           <label htmlFor='floatingPasswordCustom'>Confirm password</label>
         </Form.Floating>
