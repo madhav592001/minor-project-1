@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 export const userSignup = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
-      return res.status(400).json({
+      return res.status(201).json({
         message: 'User already exist',
       });
     }
@@ -30,7 +30,7 @@ export const userSignup = (req, res) => {
       }
     }
     if (req.body.password !== req.body.confirm_password) {
-      return res.status(400).json({
+      return res.status(202).json({
         message: "passwords don't match",
       });
     }

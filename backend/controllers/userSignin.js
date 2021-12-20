@@ -16,12 +16,12 @@ export const userSignin = (req, res) => {
           message: 'login successfully',
         });
       } else {
-        return res.status(401).json({
+        return res.status(201).json({
           message: 'Wrong password!!',
         });
       }
     } else {
-      return res.status(400).json({
+      return res.status(202).json({
         message: 'not registered!! register first',
       });
     }

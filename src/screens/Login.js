@@ -7,12 +7,12 @@ const Login = () => {
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [auth,setAuth] = useState(true) ; 
+  const [resStatus,setResStatus] = useState() ; 
 
   const login = (e) => {
     e.preventDefault();
 
-    console.log(email+"+"+password);
+    // console.log(email+"+"+password);
 
     axios.post('/signin', {
       email:email,
@@ -21,7 +21,9 @@ const Login = () => {
       // console.log(res);
       await localStorage.setItem("jwt_token",res.data.jwt_token) ; 
       // console.log( localStorage.getItem('jwt_token') ) ;
-      if(res.status === 200)
+      console.log(res.status)
+      await setResStatus((resStatus)=> setResStatus(res.status)) ; 
+      if(resStatus === 200)
       {
         navigate('/home') ;
       }
@@ -71,9 +73,11 @@ const Login = () => {
             Login
           </button>
 
-          {/* <h3>{setAuth?"":"Wrong email/password"}</h3> */}
+          <h2 className='my-2 text-danger'>{resStatus===201?"Wrong email/password!!":""}</h2>
 
-          <h5 className='mt-5 text-success'>Not Registered? Signup for Sticky Notes</h5>
+          <h2 className='my-2 text-danger'>{resStatus===202?"You are not Registered!! Click on the link below":""}</h2>
+
+          <h5 className='text-success'>Not Registered? Signup for Sticky Notes</h5>
           <Link to='/registeruser' className='btn btn-info w-25 mb-5'>
             Signup
           </Link>

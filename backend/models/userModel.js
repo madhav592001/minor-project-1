@@ -33,4 +33,5 @@ userSchema.methods = {
     return bcrypt.compareSync(password, this.hash_password);
   },
 };
+
 export default mongoose.model('User', userSchema);
