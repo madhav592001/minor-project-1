@@ -18,7 +18,7 @@ export const addNote = (req,res) => {
 
     } catch (error) {
         
-        return res.status(400).json({
+        return res.status(201).json({
             message:"some error occured"
         })
 

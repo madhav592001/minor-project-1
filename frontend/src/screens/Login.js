@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
@@ -9,25 +9,22 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [resStatus,setResStatus] = useState() ; 
 
-  const login = (e) => {
-    e.preventDefault();
-
+  const login = async(e) => {
+    e.preventDefault() ;
     // console.log(email+"+"+password);
 
-    axios.post('/signin', {
+    const res = await axios.post('/signin', {
       email:email,
       password:password
-    }).then(async(res) => {
-      // console.log(res);
-      await localStorage.setItem("jwt_token",res.data.jwt_token) ; 
-      // console.log( localStorage.getItem('jwt_token') ) ;
-      console.log(res.status)
-      await setResStatus((resStatus)=> setResStatus(res.status)) ; 
-      if(resStatus === 200)
-      {
-        navigate('/home') ;
-      }
-    });
+    })
+
+    setResStatus((resStatus)=>setResStatus(res.status))
+    
+    if(res.status === 200){
+      localStorage.setItem("jwt_token",res.data.jwt_token) ; 
+      navigate("/home") ;
+    }
+
   };
 
   return (
@@ -69,7 +66,7 @@ const Login = () => {
         </Form.Floating>
 
         <Form.Group className='d-flex justify-content-center align-items-center flex-column w-100 mt-3'>
-          <button className='btn btn-info w-25' onClick={e=>login(e)}>
+          <button className='btn btn-info w-25' onClick={login}>
             Login
           </button>
 

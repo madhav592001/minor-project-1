@@ -30,6 +30,16 @@ export const validateSignupRequest = [
 
 ]
 
+export const validateAddNoteRequest = [
+    check("title")
+    .notEmpty()
+    .withMessage("Enter the Title"),
+
+    check("description")
+    .notEmpty()
+    .withMessage("Enter the Description")
+]
+
 
 export const isRequestValidated = (req,res,next) => { 
 
