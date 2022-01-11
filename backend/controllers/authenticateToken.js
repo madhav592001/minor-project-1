@@ -7,22 +7,21 @@ export const authenticateToken = (req, res, next) => {
 
   if (token == null)
     return res.status(401).json({
-      auth:false,
+      auth: false,
       message: 'no authorization',
     });
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err)
       return res.status(403).json({
-        auth:false,
+        auth: false,
         message: 'no access',
       });
 
-    req.user = user; //* will give the payload back like we have given  
-                     //* email in payload so it will return that object
+    req.user = user; //* will give the payload back like we have given
+    //* email in payload so it will return that object
     //* res.send(req.user.email) ;
 
     next();
   });
 };
-  

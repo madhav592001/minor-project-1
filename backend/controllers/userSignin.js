@@ -5,9 +5,9 @@ export const userSignin = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
       if (user.authenticate(req.body.password)) {
-        const user = { email: req.body.email }; //* payload
+        const user_payload = { email: req.body.email }; //* payload
 
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        const accessToken = jwt.sign(user_payload, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: '3h',
         });
 
