@@ -4,7 +4,7 @@ export const  getNoteById = (req,res) => {
 
     try {
 
-        User.findOne({email:req.user.email},{notes: {$elemMatch: {"_id":req.body.id}}}).then(async(response)=>{        
+        User.findOne({email:req.user.email},{notes: {$elemMatch: {"_id":req.params.id}}}).then(async(response)=>{        
 
             const note = response.notes[0] ; 
 

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Notes = ({ key, note }) => {
+const Notes = ({ note }) => {
 
   const deleteNote = async () => {
     const config = {
@@ -25,13 +26,19 @@ const Notes = ({ key, note }) => {
 
   return (
     <div className='card text-white bg-primary mb-3'>
-      <h4 class='card-header'>{note.title}</h4>
-      <div class='card-body'>
-        <p class='card-text'>{note.description}</p>
+      <h4 className='card-header'>{note.title}</h4>
+      <div className='card-body'>
+        <p className='card-text' style={{fontSize:"20px"}} >{note.description}</p>
       </div>
-      <button className='btn btn-danger' onClick={deleteNote}>
-        Delete
-      </button>
+
+      <div className='w-100' >
+        <button className='btn btn-danger w-50' onClick={deleteNote}>
+          Delete
+        </button>
+        <Link to={`/updatenote/${note._id}`} className='btn btn-success w-50'  >
+          Update
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import './AddNoteModal.css';
+import { Alert } from 'react-bootstrap';
 
 const AddNoteModal = (props) => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [resMessage,setResMessage] = useState("") ;  
+  const [show,setShow] = useState(false)
 
   const addNote = async (e) => {
     e.preventDefault();
@@ -24,21 +26,32 @@ const AddNoteModal = (props) => {
     console.log(res);
 
     if(res.status === 210){
-        setResMessage(res.data.msg)
+        await setResMessage(res.data.msg)
+        setShow(true) ;
     }
 
     if(res.status === 200){
-        window.location.reload(false);
-        props.setAddNoteModal(false) ; 
+        // window.location.reload(false);
+        await setResMessage("YOUR NOTE HAS BEEN CREATED SUCCESSFULLY")
+        setShow(true) ;
     }
   };
 
   return props.trigger ? (
     <div className='modal'>
       <div className='modalBox bg-primary'>
+
+                
+      <Alert show={show} className='mt-3' variant="info" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading className='text-center' >{resMessage}</Alert.Heading>
+      </Alert>
+
         <button
           className='btn btn-danger px-2 py-1 float-end'
-          onClick={() => props.setAddNoteModal(false)}
+          onClick={() => {
+          window.location.reload(false) ;
+          props.setAddNoteModal(false) ;          
+          }}
         >
           X
         </button>
@@ -48,7 +61,7 @@ const AddNoteModal = (props) => {
           <h5 className='text-white'>Title of the Note</h5>
           <input
             type='text'
-            class='form-control'
+            className='form-control'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -61,8 +74,6 @@ const AddNoteModal = (props) => {
           ></textarea>
         </div>
 
-        <h2 className='mt-3 text-danger text-center' >{resMessage.length !== 0 ? resMessage:""}</h2>
-
         <button className='btn btn-success mt-3' onClick={addNote}>
           ADD NOTE
         </button>
@@ -72,5 +83,8 @@ const AddNoteModal = (props) => {
     ''
   );
 };
+
+
+
 
 export default AddNoteModal;

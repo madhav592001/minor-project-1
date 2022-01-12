@@ -1,34 +1,74 @@
 import React, { useState } from 'react';
-import { Container, Form } from 'react-bootstrap';
-import { Link,useNavigate } from 'react-router-dom';
+import { Container, Form, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [resStatus,setResStatus] = useState() ; 
+  const [resMessage, setResMessage] = useState('');
+  const [show, setShow] = useState(false);
 
-  const login = async(e) => {
-    e.preventDefault() ;
+  // useEffect(() => {
+
+  //   const config = {
+  //     headers: {
+  //       authorization: "Bearer "+localStorage.getItem('jwt_token'),
+  //     },
+  //   };
+  //   const res = axios.get("/isauthenticatd",config) ;
+
+  //   if(res.status !== 401 && res.status !==403 ){
+  //     navigate("/home") ;
+  //   }
+
+  // }, [])
+
+  const login = async (e) => {
+    e.preventDefault();
     // console.log(email+"+"+password);
 
     const res = await axios.post('/signin', {
-      email:email,
-      password:password
-    })
+      email: email,
+      password: password,
+    });
 
-    setResStatus((resStatus)=>setResStatus(res.status))
-    
-    if(res.status === 200){
-      localStorage.setItem("jwt_token",res.data.jwt_token) ; 
-      navigate("/home") ;
+    console.log(res);
+
+    if (res.status === 210) {
+      await setResMessage(res.data.msg);
+      setShow(true);
     }
 
+    if(res.status === 201){
+      await setResMessage("WRONG PASSWORD!! PLEASE TRY AGAIN")
+      setShow(true) ;
+    }
+
+    if(res.status === 202){
+      await setResMessage("NOT REGISTERED!! REGISTER USING THE LINK BELOW") ;
+      setShow(true) ;
+    }
+
+    if (res.status === 200) {
+      localStorage.setItem('jwt_token', res.data.jwt_token);
+      navigate('/home');
+    }
   };
 
   return (
     <Container className='text-light d-flex justify-content-center flex-column align-items-center'>
+      <Alert
+        show={show}
+        className='mt-3 w-100 text-center'
+        variant='danger'
+        onClose={() => setShow(false)}
+        dismissible
+      >
+        <Alert.Heading>{resMessage}</Alert.Heading>
+      </Alert>
+
       <h1 className='text-center mt-4'>Sticky Notes</h1>
       <img
         className='mt-5'
@@ -70,11 +110,9 @@ const Login = () => {
             Login
           </button>
 
-          <h2 className='my-2 text-danger'>{resStatus===201?"Wrong email/password!!":""}</h2>
-
-          <h2 className='my-2 text-danger'>{resStatus===202?"You are not Registered!! Click on the link below":""}</h2>
-
-          <h5 className='text-success'>Not Registered? Signup for Sticky Notes</h5>
+          <h5 className='text-success'>
+            Not Registered? Signup for Sticky Notes
+          </h5>
           <Link to='/registeruser' className='btn btn-info w-25 mb-5'>
             Signup
           </Link>

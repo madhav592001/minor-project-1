@@ -1,16 +1,16 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
-import { useNavigate,Link } from 'react-router-dom';
+import { Form,Alert } from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
-  
   const [email, setEamil] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
-  const [resMessge,setResMessage] = useState('') ;
+  const [resMessage, setResMessage] = useState('');
+  const [show,setShow] = useState(false) ;
   let navigate = useNavigate();
 
   const register = (e) => {
@@ -29,20 +29,33 @@ const Register = () => {
       if (res.status === 200) {
         navigate('/');
       }
-      if(res.status === 210){
-        setResMessage(res.data.msg)
+      if (res.status === 210) {
+        setResMessage(res.data.msg);
+        setShow(true)
       }
-      if(res.status === 202){
-        setResMessage("Password and Confirm Password don't match")
+      if (res.status === 202) {
+        setResMessage("Password and Confirm Password don't match");
+        setShow(true) ;
       }
-      if(res.status === 201){
-        setResMessage("User alerady Exist!! Click on the Login link below.")
+      if (res.status === 201) {
+        setResMessage('User alerady Exist!! Click on the Login link below.');
+        setShow(true) ;
       }
     });
   };
 
   return (
     <div className='text-warning d-flex align-items-center justify-content-center flex-column container mt-2'>
+      <Alert
+        show={show}
+        className='mt-3 w-100 text-center'
+        variant='danger'
+        onClose={() => setShow(false)}
+        dismissible
+      >
+        <Alert.Heading>{resMessage}</Alert.Heading>
+      </Alert>
+
       <h1 className='text-center mt-2'>Sticky Notes</h1>
 
       <img
@@ -109,14 +122,15 @@ const Register = () => {
         </Form.Floating>
       </div>
 
-      <h1 className='mt-3 text-danger' >{resMessge.length !== 0 ? resMessge:""}</h1>
-
       <button className='btn btn-warning w-50 mt-3 mb-5' onClick={register}>
         Register
       </button>
 
-      <div className='d-flex align-items-center justify-content-center flex-column mb-5' >
-        <h5 className='text-white'>Already a User, Login Now</h5> <Link to='/' className='btn btn-success mt-2' >Login</Link>
+      <div className='d-flex align-items-center justify-content-center flex-column mb-5'>
+        <h5 className='text-white'>Already a User, Login Now</h5>{' '}
+        <Link to='/' className='btn btn-success mt-2'>
+          Login
+        </Link>
       </div>
     </div>
   );

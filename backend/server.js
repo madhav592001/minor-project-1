@@ -31,8 +31,8 @@ connectdb();
 app.get('/isauthenticated', authenticateToken);
 app.get('/getuserdetails', authenticateToken, getUserDetails);
 app.get('/notes', authenticateToken, getNotes);
+app.get('/note/:id', authenticateToken, getNoteById);
 
-app.post('/note', authenticateToken, getNoteById);
 app.post('/signup', validateSignupRequest, isRequestValidated, userSignup);
 app.post('/signin', validateSigninRequest, isRequestValidated, userSignin);
 app.post(
@@ -43,7 +43,7 @@ app.post(
   addNote
 );
 
-app.delete('/deletenote/', authenticateToken, deleteNote);
+app.delete('/deletenote/:id', authenticateToken, deleteNote);
 
 app.put('/updatenote/:id', authenticateToken, updateNote);
 
