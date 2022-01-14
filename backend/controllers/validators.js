@@ -50,7 +50,7 @@ export const isRequestValidated = (req,res,next) => {
     if(errors.array().length > 0 ){
         return res.status(210).json({
             msg: errors.array()[0].msg,
-          });
+        });
     }
 
     next() ; 

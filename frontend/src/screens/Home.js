@@ -11,8 +11,24 @@ const Home = () => {
   const [addNoteModal, setAddNoteModal] = useState(false);
   const [isauthenticated, setIsAuthenticated] = useState(false);
 
-  // console.log(user)
-  // console.log(notes)
+  useEffect(() => {
+
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('jwt_token'),
+      },
+    };
+  
+    axios.get('/getuserdetails', config).then(async (res) => {
+      console.log(res.data.user);
+      if (res.status === 200) {
+        await setIsAuthenticated(true);
+      }
+      setUser(res.data.user);
+      setNotes(res.data.user.notes);
+    });
+    
+  }, [])
 
   const logout = async () => {
     let res = await window.confirm('Are You sure you want to logout?');
@@ -21,47 +37,28 @@ const Home = () => {
       await localStorage.removeItem('jwt_token');
     }
 
-    window.location.reload(false) ;
-
+    window.location.reload(false);
   };
-
-  useEffect(() => {
-
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('jwt_token'),
-      },
-    };
-
-    axios.get('/getuserdetails', config).then(async (res) => {
-      console.log(res.data.user);
-      if (res.status === 200) {
-        await setIsAuthenticated(true);
-      }
-      await setUser(res.data.user);
-      await setNotes(res.data.user.notes);
-    });
-
-  }, []);
 
   return isauthenticated ? (
     <div className='text-white'>
       <div className='d-flex align-items-center justify-content-center mt-3'>
-        <h1 className='text-center my-3'>Welcome {user.full_name}</h1>
-        <button className='btn btn-info mx-5' onClick={logout}>
+        <h1 className='text-center my-3'>
+          <strong>WELCOME {user.full_name}</strong>
+        </h1>
+        <button className='btn btn-danger mx-5' onClick={logout}>
           LOGOUT
         </button>
       </div>
 
       <hr />
       <Container className=' d-flex flex-row align-items-center justify-content-center'>
-        <h2 className='text-center'>Create a New Note</h2>
         <button
-          className='btn btn-outline-warning mx-4'
+          className='btn btn-light mx-4'
           disabled={!isauthenticated}
           onClick={() => setAddNoteModal(true)}
         >
-          Create
+          <strong>CREATE A NEW NOTE</strong>
         </button>
       </Container>
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Form,Alert } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
@@ -10,7 +10,7 @@ const Register = () => {
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [resMessage, setResMessage] = useState('');
-  const [show,setShow] = useState(false) ;
+  const [show, setShow] = useState(false);
   let navigate = useNavigate();
 
   const register = (e) => {
@@ -31,21 +31,30 @@ const Register = () => {
       }
       if (res.status === 210) {
         setResMessage(res.data.msg);
-        setShow(true)
+        setShow(true);
       }
       if (res.status === 202) {
         setResMessage("Password and Confirm Password don't match");
-        setShow(true) ;
+        setShow(true);
       }
       if (res.status === 201) {
         setResMessage('User alerady Exist!! Click on the Login link below.');
-        setShow(true) ;
+        setShow(true);
       }
     });
   };
 
   return (
     <div className='text-warning d-flex align-items-center justify-content-center flex-column container mt-2'>
+      <h1 className='text-center mt-2'>STICKY NOTES</h1>
+
+      <img
+        className='mt-2'
+        alt='logo'
+        src='https://clickup.com/blog/wp-content/uploads/2020/01/note-taking.png'
+        style={{ height: '200px', width: '250px' }}
+      />
+
       <Alert
         show={show}
         className='mt-3 w-100 text-center'
@@ -55,17 +64,7 @@ const Register = () => {
       >
         <Alert.Heading>{resMessage}</Alert.Heading>
       </Alert>
-
-      <h1 className='text-center mt-2'>Sticky Notes</h1>
-
-      <img
-        className='mt-5'
-        alt='logo'
-        src='https://clickup.com/blog/wp-content/uploads/2020/01/note-taking.png'
-        style={{ height: '200px', width: '250px' }}
-      />
-
-      <div className='w-75 mt-5'>
+      <div className='w-75 mt-3'>
         <Form.Floating>
           <Form.Control
             id='floatingInputCustom'
@@ -74,7 +73,7 @@ const Register = () => {
             value={email}
             onChange={(e) => setEamil(e.target.value)}
           />
-          <label htmlFor='floatingInputCustom'>Email address</label>
+          <label htmlFor='floatingInputCustom'>EMAIL ADDRESS</label>
         </Form.Floating>
 
         <Form.Floating>
@@ -85,7 +84,7 @@ const Register = () => {
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
-          <label htmlFor='floatingInputCustom'>Full Name</label>
+          <label htmlFor='floatingInputCustom'>FULL NAME</label>
         </Form.Floating>
 
         <Form.Floating>
@@ -96,7 +95,7 @@ const Register = () => {
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
-          <label htmlFor='floatingInputCustom'>User Name</label>
+          <label htmlFor='floatingInputCustom'>USER NAME</label>
         </Form.Floating>
 
         <Form.Floating>
@@ -107,7 +106,7 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label htmlFor='floatingPasswordCustom'>Password</label>
+          <label htmlFor='floatingPasswordCustom'>PASSWORD</label>
         </Form.Floating>
 
         <Form.Floating>
@@ -118,18 +117,18 @@ const Register = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <label htmlFor='floatingPasswordCustom'>Confirm password</label>
+          <label htmlFor='floatingPasswordCustom'>CONFIRM PASSWORD</label>
         </Form.Floating>
       </div>
 
       <button className='btn btn-warning w-50 mt-3 mb-5' onClick={register}>
-        Register
+        REGISTER
       </button>
 
       <div className='d-flex align-items-center justify-content-center flex-column mb-5'>
-        <h5 className='text-white'>Already a User, Login Now</h5>{' '}
+        <h5 className='text-white'><strong>ALREADY A USER,  LOGIN NOW</strong></h5>{' '}
         <Link to='/' className='btn btn-success mt-2'>
-          Login
+          LOGIN
         </Link>
       </div>
     </div>

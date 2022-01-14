@@ -31,7 +31,6 @@ const AddNoteModal = (props) => {
     }
 
     if(res.status === 200){
-        // window.location.reload(false);
         await setResMessage("YOUR NOTE HAS BEEN CREATED SUCCESSFULLY")
         setShow(true) ;
     }
@@ -48,9 +47,9 @@ const AddNoteModal = (props) => {
 
         <button
           className='btn btn-danger px-2 py-1 float-end'
-          onClick={() => {
-          window.location.reload(false) ;
-          props.setAddNoteModal(false) ;          
+          onClick={async() => {
+            await window.location.reload(false) ;
+            props.setAddNoteModal(false) ;          
           }}
         >
           X
@@ -71,6 +70,7 @@ const AddNoteModal = (props) => {
             id='exampleTextarea'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            rows={7}
           ></textarea>
         </div>
 

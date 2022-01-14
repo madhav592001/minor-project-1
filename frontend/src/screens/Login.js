@@ -10,25 +10,9 @@ const Login = () => {
   const [resMessage, setResMessage] = useState('');
   const [show, setShow] = useState(false);
 
-  // useEffect(() => {
-
-  //   const config = {
-  //     headers: {
-  //       authorization: "Bearer "+localStorage.getItem('jwt_token'),
-  //     },
-  //   };
-  //   const res = axios.get("/isauthenticatd",config) ;
-
-  //   if(res.status !== 401 && res.status !==403 ){
-  //     navigate("/home") ;
-  //   }
-
-  // }, [])
-
   const login = async (e) => {
     e.preventDefault();
-    // console.log(email+"+"+password);
-
+    
     const res = await axios.post('/signin', {
       email: email,
       password: password,
@@ -69,17 +53,17 @@ const Login = () => {
         <Alert.Heading>{resMessage}</Alert.Heading>
       </Alert>
 
-      <h1 className='text-center mt-4'>Sticky Notes</h1>
+      <h1 className='text-center mt-4'>STICKY NOTES</h1>
       <img
-        className='mt-5'
+        className='mt-1'
         alt='logo'
         src='https://clickup.com/blog/wp-content/uploads/2020/01/note-taking.png'
         style={{ height: '200px', width: '250px' }}
       />
 
-      <h1 className='text-center mt-4'>Login</h1>
+      <h1 className='text-center mt-2'>LOGIN</h1>
 
-      <Form className='text-warning d-flex flex-column mt-5 w-75'>
+      <Form className='text-warning d-flex flex-column mt-3 w-50'>
         <Form.Floating>
           <Form.Control
             id='floatingInputCustom'
@@ -106,15 +90,15 @@ const Login = () => {
         </Form.Floating>
 
         <Form.Group className='d-flex justify-content-center align-items-center flex-column w-100 mt-3'>
-          <button className='btn btn-info w-25' onClick={login}>
-            Login
+          <button className='btn btn-success w-25' onClick={login}>
+            LOGIN
           </button>
 
-          <h5 className='text-success'>
-            Not Registered? Signup for Sticky Notes
+          <h5 className='text-white mt-5'>
+            <strong>NOT REGISTERED?  SIGNUP FOR STICKY NOTES</strong>
           </h5>
           <Link to='/registeruser' className='btn btn-info w-25 mb-5'>
-            Signup
+            SIGNUP
           </Link>
         </Form.Group>
       </Form>

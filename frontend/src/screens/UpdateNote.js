@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState ,useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
@@ -61,7 +61,6 @@ const UpdateNote = ({ match }) => {
       </Alert>
 
       <h1 className='text-center my-5 text-white'>
-        {' '}
         <b>UPDATE YOUR NOTE </b>{' '}
       </h1>
 
@@ -87,8 +86,7 @@ const UpdateNote = ({ match }) => {
         ></textarea>
 
         <button className='btn btn-info mt-3' onClick={update}>
-          {' '}
-          Save Changes{' '}
+          Save Changes
         </button>
       </div>
     </Container>

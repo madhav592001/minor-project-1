@@ -19,15 +19,15 @@ const Notes = ({ note }) => {
 
     if (result === true) {
       const res = await axios.delete(`/deletenote/${note._id}`, config);
-      console.log(res);
-      window.location.reload(false);
+      window.location.reload(false) ;
+      console.log(res); 
     }
   };
 
   return (
     <div className='card text-white bg-primary mb-3'>
-      <h4 className='card-header'>{note.title}</h4>
-      <div className='card-body'>
+      <h3 className='card-header'><strong>{note.title}</strong></h3>
+      <div className='card-body text-white'>
         <p className='card-text' style={{fontSize:"20px"}} >{note.description}</p>
       </div>
 
