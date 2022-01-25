@@ -20,22 +20,23 @@ import { getNoteById } from './controllers/getNoteById.js';
 
 dotenv.config();
 const app = express();
+const router = express.Router() ;
 const port = process.env.PORT;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors('*'));
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+router.use(cors('*'));
 
-connectdb();
+connectdb() ;
 
-app.get('/isauthenticated', authenticateToken);
-app.get('/getuserdetails', authenticateToken, getUserDetails);
-app.get('/notes', authenticateToken, getNotes);
-app.get('/note/:id', authenticateToken, getNoteById);
+router.get('/isauthenticated', authenticateToken);
+router.get('/getuserdetails', authenticateToken, getUserDetails);
+router.get('/notes', authenticateToken, getNotes);
+router.get('/note/:id', authenticateToken, getNoteById);
 
-app.post('/signup', validateSignupRequest, isRequestValidated, userSignup);
-app.post('/signin', validateSigninRequest, isRequestValidated, userSignin);
-app.post(
+router.post('/signup', validateSignupRequest, isRequestValidated, userSignup);
+router.post('/signin', validateSigninRequest, isRequestValidated, userSignin);
+router.post(
   '/addnote',
   authenticateToken,
   validateAddNoteRequest,
@@ -43,9 +44,9 @@ app.post(
   addNote
 );
 
-app.delete('/deletenote/:id', authenticateToken, deleteNote);
+router.delete('/deletenote/:id', authenticateToken, deleteNote);
 
-app.put('/updatenote/:id', authenticateToken, updateNote);
+router.put('/updatenote/:id', authenticateToken, updateNote);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
